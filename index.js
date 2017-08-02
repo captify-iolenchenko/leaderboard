@@ -84,7 +84,7 @@ const gitHubRepoName = 'leaderboard';
 
 const routes = (
   // onEnter hook checks if a redirect is needed before App component is loaded
-  <Route path="/" mapMenuTitle="Home" component={App} onEnter={checkForRedirect}>
+  <Route path="/leaderboard" mapMenuTitle="Home" component={App} onEnter={checkForRedirect}>
     <IndexRoute component={Home} />
 
     <Route path="example" mapMenuTitle="Example" component={ExampleComponent}>
