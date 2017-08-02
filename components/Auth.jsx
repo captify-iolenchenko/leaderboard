@@ -1,13 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 
 export default class Auth extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
+      open: !props.response.isSigned,
     };
   }
 
@@ -20,36 +20,38 @@ export default class Auth extends React.Component {
   };
 
   render() {
+    const { auth, response } = this.props;
     const actions = [
       <FlatButton
-        label="Cancel"
+        label="Logout"
         primary
-        onTouchTap={this.handleClose}
+        onTouchTap={auth.handleSignoutClick}
       />,
       <FlatButton
-        label="Submit"
+        label="Log in"
         primary
         keyboardFocused
-        onTouchTap={this.handleClose}
+        onTouchTap={auth.handleAuthClick}
       />,
     ];
 
     return (
-      <div>
-        <RaisedButton label="Dialog" onTouchTap={this.handleOpen} />
-        <Dialog
-          title="Dialog With Actions"
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
-          The actions in this window were passed in as an array of React objects.
-        </Dialog>
-      </div>
+      <Dialog
+        title="Captify Sports Day"
+        actions={actions}
+        modal={false}
+        open={this.state.open}
+        onRequestClose={this.handleClose}
+      >
+        Please login with your Captify account to see LeaderBoard
+      </Dialog>
     );
   }
 }
 
 Auth.propTypes = {
+  auth: PropTypes.shape({}).isRequired,
+  response: PropTypes.shape({
+    isSigned: PropTypes.bool.isRequired,
+  }).isRequired,
 };
