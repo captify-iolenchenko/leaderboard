@@ -4,7 +4,7 @@ module.exports = {
   context: __dirname,
   entry: './index.js',
   output: {
-    path: __dirname + '/build',
+    path: `${__dirname}/build`,
     filename: 'bundle.js',
   },
   module: {
@@ -14,19 +14,19 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
-        }
-      }
-    ]
+          presets: ['es2015', 'react', 'stage-0'],
+        },
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    })
-  ]
+        NODE_ENV: JSON.stringify('development'),
+      },
+    }),
+  ],
 };
