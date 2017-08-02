@@ -71,7 +71,7 @@ function parseRedirectQuery(query, replace) {
 // a redirect to the domain with no path is required.
 // https://help.github.com/articles/custom-domain-redirects-for-github-pages-sites/
 // SET THIS: e.g. my-repo-name
-const gitHubRepoName = 'react-github-pages';
+const gitHubRepoName = 'leaderboard';
 // The domain for your site
 // SET THIS: e.g. http://subdomain.example.tld, or http://www.example.tld
 const domain = 'http://react-github-pages.rafrex.com';
