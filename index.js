@@ -44,25 +44,25 @@ function checkForRedirect(nextState, replace) {
 }
 
 
-const routes = (auth, response) => (
+const routes = auth => (
   // onEnter hook checks if a redirect is needed before App component is loaded
   <Route
     path="/"
     mapMenuTitle="App"
-    component={props => <App auth={auth} response={response}>{props.children}</App>}
+    component={props => <App auth={auth}>{props.children}</App>}
     onEnter={checkForRedirect}
   >
-    <IndexRoute component={() => <Auth auth={auth} response={response} />} />
+    <IndexRoute component={() => <Auth auth={auth} />} />
 
     <Route path="*" mapMenuTitle="Page Not Found" component={PageNotFound} />
   </Route>
 );
 
-const Root = ({ store, auth, response }) => (
+const Root = ({ store, auth }) => (
   <Provider store={store}>
     <Router
       history={browserHistory}
-      routes={routes(auth, response)}
+      routes={routes(auth)}
     />
   </Provider>
 );
@@ -70,12 +70,11 @@ const Root = ({ store, auth, response }) => (
 Root.propTypes = {
   store: PropTypes.shape({}).isRequired,
   auth: PropTypes.shape({}).isRequired,
-  response: PropTypes.shape({}).isRequired,
 };
 
 const store = createStore(reducer);
 
-authController().then(auth => auth.response.then(response => render(
-  <Root store={store} response={response} auth={auth} />,
+authController(store).then(auth => render(
+  <Root store={store} auth={auth} />,
   document.getElementById('root'),
-)));
+));

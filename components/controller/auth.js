@@ -1,7 +1,7 @@
 import gca from 'google-client-api';
 
 const auth = gca();
-const authCall = () => auth.then((gapi) => {
+const authCall = store => auth.then((gapi) => {
   const CLIENT_ID = '1075332311102-it0g093aur5cnqn1isj2kr0ola2jv7rv.apps.googleusercontent.com';
 
   // Array of API discovery doc URLs for APIs used by the quickstart
@@ -14,15 +14,21 @@ const authCall = () => auth.then((gapi) => {
   /**
    *  Sign in the user upon button click.
    */
-  function handleAuthClick() {
-    gapi.auth2.getAuthInstance().signIn();
+  function handleAuthClick(dispatch) {
+    return () => {
+      gapi.auth2.getAuthInstance().signIn()
+        .then(() => dispatch({ type: 'SET_AUTH', value: true }));
+    };
   }
 
   /**
    *  Sign out the user upon button click.
    */
-  function handleSignoutClick() {
-    gapi.auth2.getAuthInstance().signOut();
+  function handleSignoutClick(dispatch) {
+    return () => {
+      gapi.auth2.getAuthInstance().signOut()
+        .then(() => dispatch({ type: 'SET_AUTH', value: false }));
+    };
   }
 
   /**
@@ -63,14 +69,13 @@ const authCall = () => auth.then((gapi) => {
       clientId: CLIENT_ID,
       scope: SCOPES,
     }).then(() => {
+      const isSigned = gapi.auth2.getAuthInstance().isSignedIn.get();
+      store.dispatch({ type: 'SET_AUTH', value: isSigned });
       // Listen for sign-in state changes.
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
       // Handle the initial sign-in state.
-      resolve({
-        result: updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get()),
-        isSigned: gapi.auth2.getAuthInstance().isSignedIn.get(),
-      });
+      resolve(updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get()));
     });
   };
 
