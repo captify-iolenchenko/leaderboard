@@ -5,6 +5,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppContainer } from 'react-hot-loader';
 import FlatButton from 'material-ui/FlatButton';
 
+import Snack from './Snack';
+
 function App({ children, auth, dispatch, isSigned }) {
   return (
     <AppContainer>
@@ -13,9 +15,10 @@ function App({ children, auth, dispatch, isSigned }) {
           {isSigned ? <FlatButton
             label="Logout"
             primary
-            onTouchTap={auth.handleSignoutClick(dispatch)}
+            onTouchTap={auth.handleSignoutClick}
           /> : null}
           {children}
+          <Snack />
         </div>
       </MuiThemeProvider>
     </AppContainer>
@@ -31,9 +34,6 @@ App.propTypes = {
   isSigned: PropTypes.bool.isRequired,
 };
 
-export default connect((state) => {
-  console.log(state, 'state');
-  return ({
-    isSigned: state.auth,
-  });
-})(App);
+export default connect(state => ({
+  isSigned: state.auth,
+}))(App);

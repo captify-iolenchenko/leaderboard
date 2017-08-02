@@ -10,7 +10,7 @@ const Auth = ({ auth, dispatch, isSigned }) => {
       label="Log in"
       primary
       keyboardFocused
-      onTouchTap={auth.handleAuthClick(dispatch)}
+      onTouchTap={auth.handleAuthClick}
     />,
   ];
 

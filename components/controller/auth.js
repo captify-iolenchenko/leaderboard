@@ -1,5 +1,17 @@
 import gca from 'google-client-api';
 
+import getData from './getData';
+
+const okHandler = (gapi, dispatch) => {
+  dispatch({ type: 'SET_AUTH', value: true });
+  getData(gapi, dispatch);
+};
+
+const nokHandler = (dispatch) => {
+  dispatch({ type: 'SET_AUTH', value: false });
+  dispatch({ type: 'SET_DATA', value: null });
+};
+
 const auth = gca();
 const authCall = store => auth.then((gapi) => {
   const CLIENT_ID = '1075332311102-it0g093aur5cnqn1isj2kr0ola2jv7rv.apps.googleusercontent.com';
@@ -14,38 +26,15 @@ const authCall = store => auth.then((gapi) => {
   /**
    *  Sign in the user upon button click.
    */
-  function handleAuthClick(dispatch) {
-    return () => {
-      gapi.auth2.getAuthInstance().signIn()
-        .then(() => dispatch({ type: 'SET_AUTH', value: true }));
-    };
+  function handleAuthClick() {
+    gapi.auth2.getAuthInstance().signIn();
   }
 
   /**
    *  Sign out the user upon button click.
    */
-  function handleSignoutClick(dispatch) {
-    return () => {
-      gapi.auth2.getAuthInstance().signOut()
-        .then(() => dispatch({ type: 'SET_AUTH', value: false }));
-    };
-  }
-
-  /**
-   * Print the names and majors of students in a sample spreadsheet:
-   * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-   */
-  function listMajors() {
-    gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: '1ZO-Hrj8X2WXJG028AqHrRPWMHdmoJS9JfzKZSlF-8n8',
-      range: 'Form responses 1!A2:E',
-    }).then((response) => {
-      const range = response.result;
-      console.log(response, 'getResponse');
-      return range.values;
-    }, (response) => {
-      console.log(response.result.error.message, 'error');
-    });
+  function handleSignoutClick() {
+    gapi.auth2.getAuthInstance().signOut();
   }
 
   /**
@@ -54,7 +43,9 @@ const authCall = store => auth.then((gapi) => {
    */
   function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
-      return listMajors();
+      okHandler(gapi, store.dispatch);
+    } else {
+      nokHandler(store.dispatch);
     }
     return null;
   }
@@ -69,8 +60,6 @@ const authCall = store => auth.then((gapi) => {
       clientId: CLIENT_ID,
       scope: SCOPES,
     }).then(() => {
-      const isSigned = gapi.auth2.getAuthInstance().isSignedIn.get();
-      store.dispatch({ type: 'SET_AUTH', value: isSigned });
       // Listen for sign-in state changes.
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
@@ -88,12 +77,19 @@ const authCall = store => auth.then((gapi) => {
     });
   }
 
-  const response = handleClientLoad();
-  return {
-    handleAuthClick,
-    handleSignoutClick,
-    response,
-  };
+  return handleClientLoad().then(() => {
+    const isSigned = gapi.auth2.getAuthInstance().isSignedIn.get();
+    if (isSigned) {
+      okHandler(gapi, store.dispatch);
+    } else {
+      nokHandler(store.dispatch);
+    }
+    return {
+      handleAuthClick,
+      handleSignoutClick,
+      gapi,
+    };
+  });
 });
 
 export default authCall;
