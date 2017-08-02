@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 const TBar = ({ auth, isSigned }) => (
   <Toolbar>
     <ToolbarGroup firstChild>
-      <ToolbarTitle text="LeaderBoard" style={{ paddingLeft: 10 }} />
+      <ToolbarTitle text="LeaderBoard Captify Sports Day" style={{ paddingLeft: 10 }} />
     </ToolbarGroup>
     <ToolbarGroup lastChild>
       {isSigned ? <FlatButton

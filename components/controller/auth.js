@@ -9,7 +9,7 @@ const okHandler = (gapi, dispatch) => {
 
 const nokHandler = (dispatch) => {
   dispatch({ type: 'SET_AUTH', value: false });
-  dispatch({ type: 'SET_DATA', value: null });
+  dispatch({ type: 'SET_DATA', value: {} });
 };
 
 const auth = gca();
