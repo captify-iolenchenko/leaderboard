@@ -5,10 +5,10 @@
 function getData(gapi, dispatch) {
   gapi.client.sheets.spreadsheets.values.get({
     spreadsheetId: '1ZO-Hrj8X2WXJG028AqHrRPWMHdmoJS9JfzKZSlF-8n8',
-    range: 'Form responses 1!A2:E',
+    range: 'Form responses 1!A2:F',
   }).then((response) => {
     const range = response.result;
-    dispatch({ type: 'SET_DATA', value: range });
+    dispatch({ type: 'SET_DATA', value: range.values });
     return range.values;
   }, () => {
     dispatch({ type: 'ADD_SNACKBAR_MESSAGE', value: 'Oops, looks like your account is not from Captify :sad_face:' });

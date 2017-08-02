@@ -79,15 +79,11 @@ const authCall = store => auth.then((gapi) => {
 
   return handleClientLoad().then(() => {
     const isSigned = gapi.auth2.getAuthInstance().isSignedIn.get();
-    if (isSigned) {
-      okHandler(gapi, store.dispatch);
-    } else {
-      nokHandler(store.dispatch);
-    }
     return {
       handleAuthClick,
       handleSignoutClick,
       gapi,
+      isSigned,
     };
   });
 });

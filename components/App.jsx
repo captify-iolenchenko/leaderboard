@@ -3,21 +3,17 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { AppContainer } from 'react-hot-loader';
-import FlatButton from 'material-ui/FlatButton';
 
 import Snack from './Snack';
+import Toolbar from './Toolbar';
 
-function App({ children, auth, dispatch, isSigned }) {
+function App({ auth }) {
   return (
     <AppContainer>
       <MuiThemeProvider>
-        <div>
-          {isSigned ? <FlatButton
-            label="Logout"
-            primary
-            onTouchTap={auth.handleSignoutClick}
-          /> : null}
-          {children}
+        <div style={{ margin: '0 auto', position: 'relative', width: 700 }}>
+          <img src="captify-logo.png" alt="Captify" width="500" height="150" style={{ margin: '0 100px' }} />
+          <Toolbar auth={auth} />
           <Snack />
         </div>
       </MuiThemeProvider>
@@ -26,12 +22,9 @@ function App({ children, auth, dispatch, isSigned }) {
 }
 
 App.propTypes = {
-  children: PropTypes.node.isRequired,
   auth: PropTypes.shape({
     handleSignoutClick: PropTypes.func.isRequired,
   }).isRequired,
-  dispatch: PropTypes.func.isRequired,
-  isSigned: PropTypes.bool.isRequired,
 };
 
 export default connect(state => ({

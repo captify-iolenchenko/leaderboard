@@ -41,6 +41,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
     "google-client-api": "^1.0.4",
+    "lodash": "^4.17.4",
     "material-ui": "^0.18.7",
     "prop-types": "^15.5.10",
     "react": "^15.0.2",
