@@ -12,6 +12,10 @@
   "bugs": {
     "url": "https://github.com/rafrex/react-github-pages/issues"
   },
+  "scripts": {
+    "serve": "webpack-dev-server --port 7979 --progress --colors --inline",
+    "push": "webpack"
+  },
   "homepage": "https://github.com/rafrex/react-github-pages#readme",
   "dependencies": {
     "babel-core": "^6.8.0",
@@ -21,6 +25,7 @@
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-router": "^2.4.0",
-    "webpack": "^1.13.0"
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.6.1"
   }
 }

@@ -21,9 +21,10 @@ function checkForRedirect(nextState, replace) {
   const location = nextState.location;
   if (location.query.redirect === 'true') {
     parseRedirectQuery(location.query, replace);
-  } else if (location.pathname.split('/')[1] === gitHubRepoName) {
-    redirectToDomain();
   }
+  // else if (location.pathname.split('/')[1] === gitHubRepoName) {
+    // redirectToDomain();
+  // }
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -74,10 +75,10 @@ function parseRedirectQuery(query, replace) {
 const gitHubRepoName = 'leaderboard';
 // The domain for your site
 // SET THIS: e.g. http://subdomain.example.tld, or http://www.example.tld
-const domain = 'http://react-github-pages.rafrex.com';
-function redirectToDomain() {
-  window.location.replace(domain);
-}
+// const domain = 'https://github.com/captify-iolenchenko/leaderboard';
+// function redirectToDomain() {
+//   window.location.replace(domain);
+// }
 ///////////////////////////////////////////////////////////////////////////////
 
 
