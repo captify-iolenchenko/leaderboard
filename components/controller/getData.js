@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * Print the names and majors of students in a sample spreadsheet:
  * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
@@ -8,8 +10,9 @@ function getData(gapi, dispatch) {
     range: 'Form responses 1!A2:F',
   }).then((response) => {
     const range = response.result;
-    dispatch({ type: 'SET_DATA', value: range.values });
-    return range.values;
+    const filtered = _.filter(range.values, row => !_.isEmpty(row));
+    dispatch({ type: 'SET_DATA', value: filtered });
+    return filtered;
   }, () => {
     dispatch({ type: 'ADD_SNACKBAR_MESSAGE', value: 'Oops, looks like your account is not from Captify :sad_face:' });
   });
