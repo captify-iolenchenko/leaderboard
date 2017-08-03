@@ -21,7 +21,8 @@ function App({ auth, data, selectedActivity, activities }) {
           </p>
           <Toolbar auth={auth} />
           {_.map(data, (rows, title) => {
-            const elem = <Table data={rows} title={title} key={title} />;
+            const elem = !title || _.every(rows, row => _.isEmpty(row)) ?
+              null : <Table data={rows} title={title} key={title} />;
             return selectedActivity === 0 ? elem : activities[selectedActivity] === title && elem;
           })}
           <Snack />
