@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { createStore } from 'redux';
@@ -9,7 +9,6 @@ import { createStore } from 'redux';
 import reducer from './components/reducer';
 import App from './components/App';
 import PageNotFound from './components/PageNotFound';
-import Auth from './components/Auth';
 import authController from './components/controller/auth';
 
 injectTapEventPlugin();
@@ -52,8 +51,6 @@ const routes = auth => (
     component={props => <App auth={auth}>{props.children}</App>}
     onEnter={checkForRedirect}
   >
-    <IndexRoute component={() => <Auth auth={auth} />} />
-
     <Route path="*" mapMenuTitle="Page Not Found" component={PageNotFound} />
   </Route>
 );
