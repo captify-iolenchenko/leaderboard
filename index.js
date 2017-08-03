@@ -51,6 +51,18 @@ const routes = auth => (
     component={props => <App auth={auth}>{props.children}</App>}
     onEnter={checkForRedirect}
   >
+    <Route
+      path="/leaderboard"
+      mapMenuTitle="App"
+      component={props => <App auth={auth}>{props.children}</App>}
+      onEnter={checkForRedirect}
+    />
+    <Route
+      path="/leaderboard/"
+      mapMenuTitle="App"
+      component={props => <App auth={auth}>{props.children}</App>}
+      onEnter={checkForRedirect}
+    />
     <Route path="*" mapMenuTitle="Page Not Found" component={PageNotFound} />
   </Route>
 );

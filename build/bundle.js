@@ -24274,9 +24274,49 @@ var routes = function routes(auth) {
           lineNumber: 48
         }
       },
-      _react2.default.createElement(_reactRouter.Route, { path: '*', mapMenuTitle: 'Page Not Found', component: _PageNotFound2.default, __source: {
+      _react2.default.createElement(_reactRouter.Route, {
+        path: '/leaderboard',
+        mapMenuTitle: 'App',
+        component: function component(props) {
+          return _react2.default.createElement(
+            _App2.default,
+            { auth: auth, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 57
+              }
+            },
+            props.children
+          );
+        },
+        onEnter: checkForRedirect,
+        __source: {
           fileName: _jsxFileName,
           lineNumber: 54
+        }
+      }),
+      _react2.default.createElement(_reactRouter.Route, {
+        path: '/leaderboard/',
+        mapMenuTitle: 'App',
+        component: function component(props) {
+          return _react2.default.createElement(
+            _App2.default,
+            { auth: auth, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 63
+              }
+            },
+            props.children
+          );
+        },
+        onEnter: checkForRedirect,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 60
+        }
+      }),
+      _react2.default.createElement(_reactRouter.Route, { path: '*', mapMenuTitle: 'Page Not Found', component: _PageNotFound2.default, __source: {
+          fileName: _jsxFileName,
+          lineNumber: 66
         }
       })
     )
@@ -24290,7 +24330,7 @@ var Root = function Root(_ref) {
     _reactRedux.Provider,
     { store: store, __source: {
         fileName: _jsxFileName,
-        lineNumber: 59
+        lineNumber: 71
       }
     },
     _react2.default.createElement(_reactRouter.Router, {
@@ -24298,7 +24338,7 @@ var Root = function Root(_ref) {
       routes: routes(auth),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 60
+        lineNumber: 72
       }
     })
   );
@@ -24314,7 +24354,7 @@ var store = (0, _redux.createStore)(_reducer2.default);
 (0, _auth2.default)(store).then(function (auth) {
   return (0, _reactDom.render)(_react2.default.createElement(Root, { store: store, auth: auth, __source: {
       fileName: _jsxFileName,
-      lineNumber: 75
+      lineNumber: 87
     }
   }), document.getElementById('root'));
 });
